@@ -12,7 +12,12 @@
                 <tbody>
                     {%for document in data%}
                         <tr>
-                            <td>{{document.model}}</td><td>{{document.serial}}</td>
+                            <td>
+                                <a href="/pick/{{document.model}}" class="btn btn-outline-warning">
+                                    {{document.model}}
+                                </a>
+                            </td>
+                            <td>{{document.serial}}</td>
                             <td>{{document.ram}}</td><td>{{document.type}}</td>
                             <td>{{document.ssd}}</td><td>{{document.stock}}</td>
                             <td>{{document.price}}</td>

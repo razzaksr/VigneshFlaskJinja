@@ -7,6 +7,11 @@ app=Flask(__name__)
 app.config['MONGODB_HOST']=url
 mydb.init_app(app)
 
+@app.route("/pick/<mod>")
+def showRead(mod):
+    collected=Laptop.objects(model=mod).first()
+    return render_template("read.html",data=collected)
+
 @app.route("/new",methods=['GET','POST'])
 def newOne():
     if request.method=="GET":
