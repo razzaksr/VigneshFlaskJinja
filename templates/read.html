@@ -1,7 +1,7 @@
 {%extends 'navigation.html' %}
 {%block annamalai%}
-    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-        <div class="card bg-danger text-light shadow-lg p-5 rounded-3">
+    <div class="col-12 col-sm-12 col-md-8 col-lg-5">
+        <div class="card bg-danger text-light shadow-lg p-3 rounded-3 mb-2">
             <h1 class="text-center">Model {{data.model}}</h1>
             <hr color="white"/>
             <h2>Product information</h2>
@@ -24,10 +24,10 @@
             <hr color="white"/>
             <h2 class="text-center">Actions</h2>
             <div class="card-body">
-                <a href="" class="float-start btn btn-outline-info rounded-pill">
+                <a href="/update/{{data.model}}" class="float-start btn btn-outline-info rounded-pill">
                     <h4 class="bi bi-credit-card-2-back"></h4>
                 </a>
-                <a href="" class="float-end btn btn-outline-dark rounded-pill">
+                <a href="/erase/{{data.model}}" class="float-end btn btn-outline-dark rounded-pill">
                     <h4 class="bi bi-trash3-fill"></h4>
                 </a>
             </div>

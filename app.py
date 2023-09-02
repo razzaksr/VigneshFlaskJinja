@@ -7,6 +7,31 @@ app=Flask(__name__)
 app.config['MONGODB_HOST']=url
 mydb.init_app(app)
 
+@app.route("/erase/<mod>")
+def performDelete(mod):
+    collected=Laptop.objects(model=mod).first()
+    collected.delete()
+    return redirect("/list")
+
+@app.route("/update/<mod>",methods=["GET","POST"])
+def performEdit(mod):
+    if request.method=="GET":
+        collected=Laptop.objects(model=mod).first()
+        return render_template("edit.html",data=collected)
+    else:
+        model=request.form['model']
+        serial=request.form['serial']
+        ram=int(request.form['ram'])
+        ssd=int(request.form['ssd'])
+        price=int(request.form['price'])
+        stock=int(request.form['stock'])
+        type=request.form['type']
+        
+        Laptop.objects(model=model).update_one(set__serial=serial,set__ram=ram,
+                                               set__ssd=ssd,set__price=price,set__stock=stock,
+                                               set__type=type)
+        return redirect("/list")
+
 @app.route("/pick/<mod>")
 def showRead(mod):
     collected=Laptop.objects(model=mod).first()
