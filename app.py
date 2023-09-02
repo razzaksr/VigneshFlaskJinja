@@ -7,6 +7,33 @@ app=Flask(__name__)
 app.config['MONGODB_HOST']=url
 mydb.init_app(app)
 
+@app.route("/shortlist",methods=['GET','POST'])
+def performFilter():
+    if request.method=="GET":
+        return render_template("filter.html")
+    else:
+        mod=request.form['model']
+        tp=request.form['type']
+        ram=request.form['ram']
+        cost=request.form['price']
+        
+        if mod!="" and tp=="Select type" and ram=="" and cost=="":
+            collected=Laptop.objects(model__startswith=mod)
+            return render_template("view.html",data=collected)
+        elif mod=="" and tp!="Select type" and ram=="" and cost=="":
+            collected=Laptop.objects(type__iexact=tp)
+            return render_template("view.html",data=collected)
+        elif mod=="" and tp=="Select type" and ram!="" and cost=="":
+            ram=int(ram)
+            collected=Laptop.objects(ram__gte=ram)
+            return render_template("view.html",data=collected)
+        elif mod=="" and tp=="Select type" and ram=="" and cost!="":
+            cost=int(cost)
+            collected=Laptop.objects(price__lte=cost)
+            return render_template("view.html",data=collected)
+        else:
+            return render_template("filter.html")
+
 @app.route("/erase/<mod>")
 def performDelete(mod):
     collected=Laptop.objects(model=mod).first()
